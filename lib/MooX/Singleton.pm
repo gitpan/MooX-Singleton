@@ -4,11 +4,12 @@ BEGIN {
   $MooX::Singleton::AUTHORITY = 'cpan:AJGB';
 }
 {
-  $MooX::Singleton::VERSION = '1.121160';
+  $MooX::Singleton::VERSION = '1.20';
 }
 # ABSTRACT: turn your Moo class into singleton
 
-use strictures 1;
+use strict;
+use warnings;
 use Role::Tiny;
 
 
@@ -50,7 +51,7 @@ MooX::Singleton - turn your Moo class into singleton
 
 =head1 VERSION
 
-version 1.121160
+version 1.20
 
 =head1 SYNOPSIS
 

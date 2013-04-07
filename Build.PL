@@ -7,17 +7,7 @@ use Module::Build 0.3601;
 
 my %module_build_args = (
   "build_requires" => {
-    "File::Find" => 0,
-    "File::Temp" => 0,
-    "Module::Build" => "0.3601",
-    "Moo" => 0,
-    "My::Singleton::A" => 0,
-    "My::Singleton::B" => 0,
-    "My::Singleton::C" => 0,
-    "My::Singleton::D" => 0,
-    "My::Singleton::E" => 0,
-    "Test::More" => 0,
-    "warnings" => 0
+    "Module::Build" => "0.3601"
   },
   "configure_requires" => {
     "ExtUtils::MakeMaker" => "6.30",
@@ -28,7 +18,7 @@ my %module_build_args = (
     "Alex J. G. Burzy\305\204ski <ajgb\@cpan.org>"
   ],
   "dist_name" => "MooX-Singleton",
-  "dist_version" => "1.121160",
+  "dist_version" => "1.20",
   "license" => "perl",
   "module_name" => "MooX::Singleton",
   "recommends" => {},
@@ -36,11 +26,30 @@ my %module_build_args = (
   "requires" => {
     "Role::Tiny" => 0,
     "strict" => 0,
-    "strictures" => 1
+    "warnings" => 0
   },
-  "script_files" => []
+  "script_files" => [],
+  "test_requires" => {
+    "File::Find" => 0,
+    "File::Temp" => 0,
+    "Moo" => 0,
+    "Test::More" => 0
+  }
 );
 
+
+unless ( eval { Module::Build->VERSION(0.4004) } ) {
+  my $tr = delete $module_build_args{test_requires};
+  my $br = $module_build_args{build_requires};
+  for my $mod ( keys %$tr ) {
+    if ( exists $br->{$mod} ) {
+      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
+    }
+    else {
+      $br->{$mod} = $tr->{$mod};
+    }
+  }
+}
 
 my $build = Module::Build->new(%module_build_args);
 

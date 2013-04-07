@@ -2,7 +2,7 @@ NAME
     MooX::Singleton - turn your Moo class into singleton
 
 VERSION
-    version 1.121160
+    version 1.20
 
 SYNOPSIS
         package MyApp;
